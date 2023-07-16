@@ -55,7 +55,7 @@ Le mot-clé `await` est uniquement valide au sein des fonctions asynchrones. Si 
 ### Exemple simple
 
 ```js
-var resolveAfter2Seconds = function() {
+let resolveAfter2Seconds = function() {
   console.log("Initialisation de la promesse lente");
   return new Promise(resolve => {
     setTimeout(function() {
@@ -65,7 +65,7 @@ var resolveAfter2Seconds = function() {
   });
 };
 
-var resolveAfter1Second = function() {
+let resolveAfter1Second = function() {
   console.log("Initialisation de la promesse rapide");
   return new Promise(resolve => {
     setTimeout(function() {
@@ -75,7 +75,7 @@ var resolveAfter1Second = function() {
   });
 };
 
-var sequentialStart = async function() {
+let sequentialStart = async function() {
   console.log('==Début séquentiel==');
 
   // 1. L'exécution atteint ce point quasi-instantanément
@@ -86,7 +86,7 @@ var sequentialStart = async function() {
   console.log(rapide); // 3. cela s'exécute 3s après 1.
 }
 
-var concurrentStart = async function() {
+let concurrentStart = async function() {
   console.log('==Début concurrentiel avec await==');
   const lente = resolveAfter2Seconds(); // le minuteur démarre immédiatement
   const rapide = resolveAfter1Second();  // le minuteur démarre immédiatement
@@ -97,7 +97,7 @@ var concurrentStart = async function() {
                              // car "rapide" est déjà résolue
 }
 
-var concurrentPromise = function() {
+let concurrentPromise = function() {
   console.log('==Début concurrentiel avec Promise.all==');
   return Promise.all([resolveAfter2Seconds(), resolveAfter1Second()]).then((messages) => {
     console.log(messages[0]); // lente
@@ -105,7 +105,7 @@ var concurrentPromise = function() {
   });
 }
 
-var parallel = async function() {
+let parallel = async function() {
   console.log('==Exécution parallèle avec await Promise.all==');
 
   // Démarre 2 tâches en parallèle et on attend que les deux soient finies
@@ -117,7 +117,7 @@ var parallel = async function() {
 
 // Cette fonction ne gère pas les erreurs
 // voir les avertissement ci-après !
-var parallelPromise = function() {
+let parallelPromise = function() {
   console.log('==Exécution parallèle avec Promise.then==');
   resolveAfter2Seconds().then((message)=>console.log(message));
   resolveAfter1Second().then((message)=>console.log(message));
